@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ransomware By Barrxz</title>
+<title>Simulasi Ransomware + Spyware</title>
 <style>
   body {
     margin:0;
@@ -18,7 +18,7 @@
     transition:background 1s ease-in-out;
   }
 
-  #bgfoto {
+  #bgImage {
     position:fixed;
     top:0; left:0; width:100%; height:100%;
     object-fit:cover;
@@ -26,7 +26,7 @@
     display:none;
   }
 
-  #bgfoto.zoomEffect {
+  #bgImage.zoomEffect {
     animation: bgZoomIn 2s ease-in-out forwards;
   }
   @keyframes bgZoomIn {
@@ -35,7 +35,7 @@
     100% { transform: scale(1); filter:brightness(1); }
   }
 
-  #fotoGlitch {
+  #videoGlitch {
     position:fixed;
     top:0; left:0; width:100%; height:100%;
     pointer-events:none;
@@ -234,9 +234,7 @@
 </style>
 </head>
 <body>
-  <video id="bgVideo" autoplay muted loop>
-    <source src="bg2.jpg" type="foto/jpg">
-  </video>
+  <img id="bgImage" src="bg2.jpg" alt="Background 2">
   <div id="videoGlitch"></div>
 
   <section class="screen start" id="start">
@@ -266,7 +264,7 @@
   <div class="glitch-overlay" id="glitch"></div>
   <script>
 (() => {
-  const SECRET_KEY = "watashiwaKIRAdesu"; 
+  const SECRET_KEY = "orewaLdesu"; 
   let secs = 5*60;
 
   // === Suara ===
@@ -290,7 +288,7 @@
   const camFlash = document.getElementById('camFlash');
   const toast = document.getElementById('toast');
   const glitch = document.getElementById('glitch');
-  const bgVideo = document.getElementById('bgVideo');
+  const bgImage = document.getElementById('bgImage');
   const videoGlitch = document.getElementById('videoGlitch');
 
   let tickTimer = null, urgentMode = false, popupInterval, toastInterval;
@@ -307,12 +305,12 @@
       docEl.webkitRequestFullscreen();
     }
 
-    // Unlock semua audio (biar izin jalan di mobile)
+    // Unlock audio di mobile
     [calmSound, bgSound, errorSound, whisper, cameraSound, glitchSound].forEach(a=>{
       a.play().then(()=>a.pause()).catch(()=>{});
     });
 
-    // Getar HP (mobile vibrate)
+    // Getar HP
     if (navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
 
     // glitch overlay
@@ -339,10 +337,8 @@
       start.style.display = 'none';
       lock.style.display = 'flex';
       document.body.style.background="none"; 
-      bgVideo.style.display="block"; 
-      videoGlitch.style.display="block";
-      bgVideo.play().catch(()=>{});
-      bgVideo.classList.add("zoomEffect");
+      bgImage.style.display="block"; 
+      bgImage.classList.add("zoomEffect");
       document.body.style.cursor = "none"; 
       document.body.style.animation = "shake .1s infinite"; 
       let fade = setInterval(() => {
@@ -384,8 +380,7 @@
     clearInterval(toastInterval);
     bgSound.pause(); whisper.pause(); glitchSound.pause();
     lock.style.display='none'; start.style.display='flex';
-    bgVideo.pause(); bgVideo.style.display="none";
-    videoGlitch.style.display="none";
+    bgImage.style.display="none";
     document.body.style.background="url('bg1.jpg') center/cover no-repeat fixed";
     document.body.style.cursor = "auto";
     secs = 5*60; urgentMode=false;
